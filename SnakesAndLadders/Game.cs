@@ -8,19 +8,18 @@ namespace SnakesLadders
 {
     public class Game
     {
-
-        //Board Size - Total Cells
         public Cell[] board;
         public Player[] players;
-
+        public int winningPosition;
 
         //Create game - new board & players
         public Game(int boardSize, int numberPlayers)
         {
             board = CreateBoard(boardSize);
             players = CreatePlayers(numberPlayers);
+            
         }
-        
+
         private Cell[] CreateBoard(int cells)
         {
             Cell[] board = new Cell[cells];
@@ -47,7 +46,31 @@ namespace SnakesLadders
             return players;
         }
 
-        //Move Player & calculate position
+        public void Play()
+        {
+            while (winningPosition < board.Length)
+            {
+                foreach (var player in players)
+                {
+                    //Roll dice
+                    int roll = RollDice();
+
+                    //Move Player & calculate position
+                    MovePlayer(roll, player);
+
+                    if (player.CurrentPosition < board.Length)
+                    {
+                        Console.WriteLine("Player: " + player.PlayerNumber + ", New position: " + player.CurrentPosition);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Player: " + player.PlayerNumber + " IS THE WINNER");
+                        break;
+                    }
+                }
+            }
+
+        }
 
         private int RollDice()
         {
@@ -55,9 +78,14 @@ namespace SnakesLadders
             return rnd.Next(1, 6);
         }
 
-        private void MovePlayer(int dice)
+        private void MovePlayer(int dice, Player player)
         {
-
+            int newCellPosition = player.CurrentPosition + dice;
+            player.CurrentPosition = newCellPosition;
+            if (newCellPosition > winningPosition)
+            {
+                winningPosition = newCellPosition;
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ namespace SnakesLadders
             int players = Int32.Parse(Console.ReadLine());
 
             Game game = new Game(cells, players);
+            game.Play();
 
         }
 
