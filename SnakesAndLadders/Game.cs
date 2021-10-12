@@ -17,22 +17,24 @@ namespace SnakesLadders
         {
             board = CreateBoard(boardSize);
             players = CreatePlayers(numberPlayers);
-            
+
         }
 
         private Cell[] CreateBoard(int cells)
         {
             Cell[] board = new Cell[cells];
-            for (int i = 0; i <cells; i++)
+            for (int i = 0; i < cells; i++)
             {
                 Cell c = new Cell();
                 c.CellNumber = i + 1;
                 board[i] = c;
             }
 
+            CreateSnakes(board);
+            CreateLadders(board);
             return board;
         }
-        
+
         private Player[] CreatePlayers(int numberPlayers)
         {
             Player[] players = new Player[numberPlayers];
@@ -46,6 +48,46 @@ namespace SnakesLadders
             return players;
         }
 
+        private void CreateSnakes(Cell[] board)
+        {
+            Console.Write("How many snakes?");
+            int snakes = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < snakes; i++)
+            {
+                Console.WriteLine("Snake head cell?");
+                int snakeHead = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Snake tail cell?");
+                int snakeTail = Int32.Parse(Console.ReadLine());
+
+                SnakeCell snake = new SnakeCell();
+                snake.CellNumber = snakeHead;
+                snake.BackToCell = snakeTail;
+
+                board[snakeHead] = snake;
+            }
+        }
+
+
+        private void CreateLadders(Cell[] board)
+        {
+            Console.Write("How many ladders?");
+            int ladders = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < ladders; i++)
+            {
+                Console.WriteLine("Ladder bottom cell?");
+                int ladderBottom = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Ladder top cell?");
+                int ladderTop = Int32.Parse(Console.ReadLine());
+
+                LadderCell ladder = new LadderCell();
+                ladder.CellNumber = ladderBottom;
+                ladder.GoToCell = ladderTop;
+                board[ladderBottom] = ladder;
+
+            }
+        }
         public void Play()
         {
             while (winningPosition < board.Length)

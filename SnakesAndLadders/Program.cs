@@ -13,7 +13,7 @@ namespace SnakesLadders
             Console.WriteLine("Board Size");
             Console.WriteLine("How many cells?");
             int cells = Int32.Parse(Console.ReadLine());
-
+            
             //Number of players
             Console.WriteLine("Players");
             Console.WriteLine("How many players?");
