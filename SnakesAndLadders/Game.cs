@@ -123,11 +123,37 @@ namespace SnakesLadders
         private void MovePlayer(int dice, Player player)
         {
             int newCellPosition = player.CurrentPosition + dice;
+
+            if (newCellPosition < board.Length)
+            {
+                //Check if snake or ladder, move accordingly
+                if (isSnakeCell(newCellPosition))
+                {
+                    newCellPosition = (board[newCellPosition] as SnakeCell).BackToCell;
+                    Console.WriteLine("Landed on a snake.........");
+                }
+                if (isLadderCell(newCellPosition))
+                {
+                    newCellPosition = (board[newCellPosition] as LadderCell).GoToCell;
+                    Console.WriteLine("Landed on a ladder.........");
+                }
+            }
             player.CurrentPosition = newCellPosition;
+
             if (newCellPosition > winningPosition)
             {
                 winningPosition = newCellPosition;
             }
+        }
+
+        private bool isSnakeCell(int cellPosition)
+        {
+            return (board[cellPosition].GetType() == typeof(SnakeCell));
+        }
+
+        private bool isLadderCell(int cellPosition)
+        {
+            return (board[cellPosition].GetType() == typeof(LadderCell));
         }
     }
 }
