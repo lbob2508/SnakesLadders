@@ -8,9 +8,56 @@ namespace SnakesLadders
 {
     public class Game
     {
-        //Board Size - Total Cells
 
-        //Number of Players
+        //Board Size - Total Cells
+        public Cell[] board;
+        public Player[] players;
+
+
+        //Create game - new board & players
+        public Game(int boardSize, int numberPlayers)
+        {
+            board = CreateBoard(boardSize);
+            players = CreatePlayers(numberPlayers);
+        }
         
+        private Cell[] CreateBoard(int cells)
+        {
+            Cell[] board = new Cell[cells];
+            for (int i = 0; i <cells; i++)
+            {
+                Cell c = new Cell();
+                c.CellNumber = i + 1;
+                board[i] = c;
+            }
+
+            return board;
+        }
+        
+        private Player[] CreatePlayers(int numberPlayers)
+        {
+            Player[] players = new Player[numberPlayers];
+            for (int i = 0; i < numberPlayers; i++)
+            {
+                Player p = new Player();
+                p.PlayerNumber = i + 1;
+                players[i] = p;
+            }
+
+            return players;
+        }
+
+        //Move Player & calculate position
+
+        private int RollDice()
+        {
+            Random rnd = new Random();
+            return rnd.Next(1, 6);
+        }
+
+        private void MovePlayer(int dice)
+        {
+
+        }
     }
 }

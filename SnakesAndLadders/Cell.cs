@@ -9,7 +9,6 @@ namespace SnakesLadders
     public class Cell
     {
         public int CellNumber { get; set; }
-
-       
+        
     }
 }
